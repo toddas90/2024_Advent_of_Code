@@ -20,12 +20,11 @@ fn main() {
 
     let mut incorrect: Vec<Vec<i32>> = Vec::new();
 
-    let mut initially_safe_reports = 0;
-    let mut eventually_safe_reports = 0;
+    let mut safe_reports = 0;
 
     for chunk in numbers.clone() {
         if check_sorted(&chunk) && check_distance(&chunk) {
-            initially_safe_reports += 1;
+            safe_reports += 1;
         } else {
             incorrect.push(chunk);
         }
@@ -37,20 +36,13 @@ fn main() {
             let mut temp = chunk.clone();
             temp.remove(i);
             if check_sorted(&temp) && check_distance(&temp) {
-                eventually_safe_reports += 1;
-                println!("Original unsafe chunk: {:?}", chunk);
-                println!("Chunk eventually safe: {:?}", temp);
+                safe_reports += 1;
                 break;
             }
         }
     }
 
-    println!("Completely Safe Reports: {}", initially_safe_reports);
-    println!("Made Safe Reports: {}", eventually_safe_reports);
-    println!(
-        "Total Safe: {}",
-        initially_safe_reports + eventually_safe_reports
-    );
+    println!("Total Safe Reports: {}", safe_reports);
 }
 
 fn check_sorted(input: &[i32]) -> bool {
