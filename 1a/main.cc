@@ -3,17 +3,18 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <memory>
 
 int main() {
-    std::vector<int> *left = new std::vector<int>;
-    std::vector<int> *right = new std::vector<int>;
+    std::unique_ptr<std::vector<int>> left(new std::vector<int>);
+    std::unique_ptr<std::vector<int>> right(new std::vector<int>);
 
     std::ifstream input ("input.txt");
 
     if (input.is_open()) {
         std::string s;
 
-        while (input.eof() != true) {
+        while (!input.eof()) {
             // Grab first number
             std::getline(input, s, ' ');
             left->push_back(std::stoi(s));
@@ -37,9 +38,6 @@ int main() {
     }
 
     std::cout << "Total Distance: " << distance << std::endl;
-
-    delete(left);
-    delete(right);
 
     return 0;
 }
