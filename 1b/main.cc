@@ -31,6 +31,7 @@ int main() {
     std::sort(left->begin(), left->end());
     std::sort(right->begin(), right->end());
 
+    // Gross initializing all vector spots to 0;
     for (int i = 0; i <= right->back(); i++) {
         count->push_back(0);
     }
@@ -42,8 +43,9 @@ int main() {
         count->at(i) += 1;
     }
 
-    for (int i = 0; i < left->size(); i++) {
-        similarity += left->at(i) * count->at(left->at(i));
+    // Calculate similarity
+    for (int i : *left) {
+        similarity += i * count->at(i);
     }
 
     std::cout << "Total Similarity: " << similarity << std::endl;
